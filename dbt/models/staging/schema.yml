@@ -1,0 +1,39 @@
+version: 2
+
+sources:
+  - name: silver
+    schema: silver
+    description: "Silver layer — cleansed Parquet data loaded into DuckDB"
+    tables:
+      - name: orders
+        description: "Cleansed Global Superstore orders"
+        columns:
+          - name: order_id
+            description: "Unique order line identifier"
+            tests:
+              - not_null
+          - name: order_date
+            description: "Date order was placed"
+            tests:
+              - not_null
+          - name: sales
+            description: "Revenue from this order line"
+            tests:
+              - not_null
+              - dbt_utils.accepted_range:
+                  min_value: 0
+                  inclusive: false
+
+models:
+  - name: stg_orders
+    description: "Staged and typed orders — single source of truth for marts"
+    columns:
+      - name: order_id
+        description: "Unique order line identifier"
+        tests:
+          - not_null
+      - name: sales
+        tests:
+          - not_null
+      - name: profit_margin
+        description: "Profit as a fraction of sales"
