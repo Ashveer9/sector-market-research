@@ -19,12 +19,14 @@ venv/
 env/
 ENV/
 
-# Data (generated at runtime)
-data/raw/
-data/processed/
-data/analytics/
-data/sample/
+# Data (generated at runtime — all content ignored, .gitkeep files track dirs)
+data/raw/**
+data/processed/**
+data/analytics/**
+data/sample/**
 data/*.duckdb
+data/*.json
+!data/**/.gitkeep
 logs/
 
 # Environment
