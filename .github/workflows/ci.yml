@@ -2,7 +2,7 @@ name: CI — Sector Market Research Pipeline
 
 on:
   push:
-    branches: [main, develop, "claude/**"]
+    branches: [main, develop, "feature/**"]
   pull_request:
     branches: [main, develop]
 
