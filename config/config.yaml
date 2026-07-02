@@ -1,0 +1,73 @@
+# =============================================================================
+# Project configuration — single source of truth for the pipeline.
+# Override any value via the CLI (`--config path`) or by editing this file.
+# =============================================================================
+
+project:
+  name: "Retail Sector Market Research & Customer Intelligence"
+  random_state: 42
+
+data:
+  # UCI Machine Learning Repository — "Online Retail II" (also widely used on Kaggle).
+  # Real transaction log of a UK-based online gift retailer, Dec 2009 – Dec 2011.
+  source_url: "https://archive.ics.uci.edu/ml/machine-learning-databases/00502/online_retail_II.xlsx"
+  raw_path: "data/raw/online_retail_II.xlsx"
+  interim_path: "data/interim/transactions.parquet"
+  processed_path: "data/processed/transactions_clean.parquet"
+  customers_path: "data/processed/customer_features.parquet"
+
+cleaning:
+  # Rows are dropped if they fail these business rules.
+  drop_missing_customer: true      # transactions without a Customer ID cannot be attributed
+  min_quantity: 1                  # quantity <= 0 are returns/adjustments, handled separately
+  min_price: 0.001                 # zero/negative price rows are catalogue/admin noise
+  cancellation_prefix: "C"         # invoices starting with "C" are cancellations
+  # Non-product stock codes (postage, fees, manual adjustments, samples, etc.).
+  service_stock_codes:
+    - "POST"
+    - "DOT"
+    - "M"
+    - "BANK CHARGES"
+    - "AMAZONFEE"
+    - "CRUK"
+    - "PADS"
+    - "S"
+    - "D"
+    - "ADJUST"
+    - "TEST"
+
+segmentation:
+  n_clusters: 4                    # chosen from elbow + silhouette scan
+  k_scan: [2, 3, 4, 5, 6, 7, 8]
+  features: ["recency", "frequency", "monetary"]
+
+cohort:
+  period: "M"                      # monthly acquisition cohorts
+
+market_basket:
+  country: "United Kingdom"        # largest market; basket rules are market-specific
+  min_support: 0.02
+  metric: "lift"
+  min_threshold: 1.0
+  max_len: 3
+  top_n_rules: 20
+
+churn:
+  # A customer is "churned" if they made no purchase in the last `inactivity_days`
+  # of the observation window. Features are built from the period before that.
+  inactivity_days: 90
+  test_size: 0.25
+  features:
+    - "recency"
+    - "frequency"
+    - "monetary"
+    - "tenure_days"
+    - "avg_order_value"
+    - "avg_basket_size"
+    - "distinct_products"
+    - "return_rate"
+
+paths:
+  figures: "reports/figures"
+  models: "models"
+  reports: "reports"

@@ -1,0 +1,116 @@
+{
+  "generated_at": "2026-07-02T04:54:33.001278+00:00",
+  "eda": {
+    "rows": 776840,
+    "orders": 36613,
+    "customers": 5853,
+    "products": 4624,
+    "countries": 41,
+    "total_revenue": 17082085.77,
+    "avg_order_value": 466.55793761778614,
+    "date_min": "2009-12-01",
+    "date_max": "2011-12-09",
+    "uk_revenue_share": 0.8367014275915322,
+    "revenue_from_top_20pct_customers": 0.7715582105990079,
+    "customers_for_80pct_revenue_share": 0.23099265334016744
+  },
+  "cohort": {
+    "month_1_retention": 0.20991063750650996,
+    "month_3_retention": 0.21711358394730434,
+    "month_6_retention": 0.17921356854696435,
+    "n_cohorts": 25
+  },
+  "segmentation": {
+    "n_segments": 4,
+    "segments": [
+      {
+        "persona": "Champions",
+        "customers": 1186,
+        "revenue_share": 0.7388437700134554,
+        "monetary": 4907.594999999999
+      },
+      {
+        "persona": "Loyal Customers",
+        "customers": 1452,
+        "revenue_share": 0.16317953952060033,
+        "monetary": 1453.035
+      },
+      {
+        "persona": "Potential / Recent",
+        "customers": 1246,
+        "revenue_share": 0.06141046849456252,
+        "monetary": 720.355
+      },
+      {
+        "persona": "At-Risk / Dormant",
+        "customers": 1969,
+        "revenue_share": 0.03656622197138165,
+        "monetary": 275.88
+      }
+    ]
+  },
+  "market_basket": {
+    "n_rules": 18,
+    "top_rules": [
+      {
+        "antecedents_str": "SWEETHEART CERAMIC TRINKET BOX",
+        "consequents_str": "STRAWBERRY CERAMIC TRINKET BOX",
+        "support": 0.02265236411577875,
+        "confidence": 0.6891522333637192,
+        "lift": 13.880366105178494
+      },
+      {
+        "antecedents_str": "STRAWBERRY CERAMIC TRINKET BOX",
+        "consequents_str": "SWEETHEART CERAMIC TRINKET BOX",
+        "support": 0.02265236411577875,
+        "confidence": 0.456246228123114,
+        "lift": 13.880366105178494
+      },
+      {
+        "antecedents_str": "WOODEN PICTURE FRAME WHITE FINISH",
+        "consequents_str": "WOODEN FRAME ANTIQUE WHITE",
+        "support": 0.02912446814885839,
+        "confidence": 0.6033519553072625,
+        "lift": 11.713943081107956
+      },
+      {
+        "antecedents_str": "WOODEN FRAME ANTIQUE WHITE",
+        "consequents_str": "WOODEN PICTURE FRAME WHITE FINISH",
+        "support": 0.02912446814885839,
+        "confidence": 0.5654450261780104,
+        "lift": 11.713943081107956
+      },
+      {
+        "antecedents_str": "LOVE BUILDING BLOCK WORD",
+        "consequents_str": "HOME BUILDING BLOCK WORD",
+        "support": 0.022892071672559477,
+        "confidence": 0.5283540802213001,
+        "lift": 9.973579792593705
+      }
+    ]
+  },
+  "churn": {
+    "best_model": "gradient_boosting",
+    "roc_auc": 0.8096849230653439,
+    "pr_auc": 0.8208595950764476,
+    "precision_churn": 0.7424425634824667,
+    "recall_churn": 0.8274932614555256,
+    "f1_churn": 0.7826641172721479,
+    "accuracy": 0.7406844106463878,
+    "churn_rate": 0.5645805592543276,
+    "n_train": 3942,
+    "n_test": 1315,
+    "confusion_matrix": [
+      [
+        360,
+        213
+      ],
+      [
+        128,
+        614
+      ]
+    ],
+    "top_feature": "recency",
+    "model_path": "/home/user/sector-market-research/models/churn_model.joblib"
+  }
+}
