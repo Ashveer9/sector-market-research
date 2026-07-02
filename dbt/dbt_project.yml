@@ -1,0 +1,32 @@
+name: "sector_market_research"
+version: "1.0.0"
+config-version: 2
+
+profile: "sector_market_research"
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  sector_market_research:
+    staging:
+      +materialized: view
+      +schema: silver
+    intermediate:
+      +materialized: ephemeral
+    marts:
+      +materialized: table
+      +schema: gold
+
+vars:
+  start_date: "2011-01-01"
+  end_date: "2014-12-31"

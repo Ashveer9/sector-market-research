@@ -1,0 +1,49 @@
+version: 2
+
+models:
+  - name: mart_sector_performance
+    description: >
+      Core KPI mart — aggregates sales, profit, and growth metrics by
+      market sector, region, and product category across quarterly periods.
+      Includes QoQ growth calculations for trend analysis.
+    columns:
+      - name: market
+        description: "Global market segment (US, EU, APAC, LATAM, Africa, EMEA, Canada)"
+        tests:
+          - not_null
+      - name: order_year
+        tests:
+          - not_null
+      - name: total_sales
+        description: "Gross sales revenue for the period"
+        tests:
+          - not_null
+      - name: avg_margin_pct
+        description: "Average profit margin percentage"
+
+  - name: mart_customer_segments
+    description: >
+      Customer segment performance — Consumer, Corporate, and Home Office
+      metrics including revenue per customer and discount behaviour.
+    columns:
+      - name: segment
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["Consumer", "Corporate", "Home Office"]
+      - name: total_revenue
+        tests:
+          - not_null
+
+  - name: mart_product_profitability
+    description: >
+      Product-level profitability analysis with margin rankings, quartile
+      classification, and loss-maker identification.
+    columns:
+      - name: product_id
+        tests:
+          - not_null
+      - name: margin_quartile
+        tests:
+          - accepted_values:
+              values: [1, 2, 3, 4]

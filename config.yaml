@@ -1,0 +1,52 @@
+project:
+  name: sector-market-research
+  version: "1.0.0"
+  description: "End-to-end retail sector market research data pipeline"
+
+paths:
+  data_root: "data"
+  raw: "data/raw"
+  processed: "data/processed"
+  analytics: "data/analytics"
+  sample: "data/sample"
+  db: "data/warehouse.duckdb"
+  logs: "logs"
+
+pipeline:
+  batch_size: 10000
+  partition_cols: ["market"]
+  bronze_compression: "snappy"
+  silver_compression: "zstd"
+
+data_quality:
+  null_threshold: 0.05          # Max 5% nulls allowed in critical columns
+  duplicate_threshold: 0.01     # Max 1% duplicates allowed
+  critical_columns:
+    - order_id
+    - order_date
+    - customer_id
+    - product_id
+    - sales
+  range_checks:
+    discount: [0.0, 1.0]
+    quantity: [1, 10000]
+    sales: [0.01, 100000.0]
+    profit: [-50000.0, 100000.0]
+
+warehouse:
+  schema_bronze: "bronze"
+  schema_silver: "silver"
+  schema_gold: "gold"
+  schema_analytics: "analytics"
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s | %(levelname)-8s | %(name)s | %(message)s"
+  date_format: "%Y-%m-%d %H:%M:%S"
+
+airflow:
+  dag_id: "sector_market_research_pipeline"
+  schedule: "0 6 * * *"         # Daily at 06:00 UTC
+  retries: 2
+  retry_delay_minutes: 5
+  email_on_failure: false
