@@ -18,7 +18,9 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
 ]
 dependencies = [
-    "anthropic>=0.40",
+    # Uses adaptive-thinking, output_config, messages.parse, and the
+    # web_search_20260209 tool types — all present from 0.115 onward.
+    "anthropic>=0.115",
     "pydantic>=2.6",
     "pydantic-settings>=2.2",
 ]
